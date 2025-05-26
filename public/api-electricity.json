@@ -1,0 +1,44 @@
+{
+  "2023":[
+    { "month": "January", "amount":  0 },
+    { "month": "February", "amount":  42.1 },
+    { "month": "March", "amount":  107.38 },
+    { "month": "April", "amount":  64.79 },
+    { "month": "May", "amount":  42.45 },
+    { "month": "June", "amount":  39.60 },
+    { "month": "July", "amount":  73.18 },
+    { "month": "August", "amount":  65.85 },
+    { "month": "September", "amount": 32.82 },
+    { "month": "October", "amount": 42.33 },
+    { "month": "November", "amount": 123.95 },
+    { "month": "December", "amount": 154.31 }
+  ],
+  "2024":[
+    { "month": "January", "amount":  244.57 },
+    { "month": "February", "amount":  201.30 },
+    { "month": "March", "amount":  145.88 },
+    { "month": "April", "amount":  62.10 },
+    { "month": "May", "amount":  48.34 },
+    { "month": "June", "amount":  36.08 },
+    { "month": "July", "amount":  54.69 },
+    { "month": "August", "amount":  45.18 },
+    { "month": "September", "amount": 41.15 },
+    { "month": "October", "amount": 34.35 },
+    { "month": "November", "amount": 71.01 },
+    { "month": "December", "amount": 130.89 }
+  ],
+  "2025":[
+    { "month": "January", "amount":  154.65 },
+    { "month": "February", "amount":  150.78 },
+    { "month": "March", "amount":  135.35 },
+    { "month": "April", "amount":  40.16 },
+    { "month": "May", "amount":  0 },
+    { "month": "June", "amount":  0 },
+    { "month": "July", "amount":  0 },
+    { "month": "August", "amount":  0 },
+    { "month": "September", "amount": 0 },
+    { "month": "October", "amount": 0 },
+    { "month": "November", "amount": 0 },
+    { "month": "December", "amount": 0 }
+  ]
+}
