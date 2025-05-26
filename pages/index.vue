@@ -53,15 +53,23 @@ const chartData = computed((): ChartData<"line"> => {
     }))
   };
 });
-const chartOptions: ChartOptions<'line'> = {
+const chartOptions = {
   responsive: true,
   plugins: {
-    title: {
-      display: true,
-      text: 'Average Monthly Temperature (°C)',
+    tooltip: {
+      callbacks: {
+        label: function (context: any) {
+          const value = context.formattedValue;
+          return `${context.dataset.label}: ${value}°C`;
+        }
+      }
     },
     legend: {
       position: 'top'
+    },
+    title: {
+      display: true,
+      text: 'Average Monthly Temperature (°C)'
     }
   }
 };
