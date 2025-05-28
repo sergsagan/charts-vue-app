@@ -53,14 +53,15 @@ const chartData = computed((): ChartData<"line"> => {
     }))
   };
 });
-const chartOptions = {
+const chartOptions: ChartOptions<'line'> = {
   responsive: true,
   plugins: {
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          const value = context.formattedValue;
-          return `${context.dataset.label}: ${value}°C`;
+          const rawValue = context.raw;
+          const rounded = typeof rawValue === 'number' ? rawValue.toFixed(1) : rawValue;
+          return `${context.dataset.label}: ${rounded}°C`;
         }
       }
     },
