@@ -1,79 +1,10 @@
 <script setup lang="ts">
-import { Line } from "vue-chartjs";
-import type { ChartData, ChartOptions } from "chart.js";
-import { ref, computed } from "vue";
+import { Line } from 'vue-chartjs'
+import { useTemperatureChartData } from '~/composables/useTemperatureChartData'
+import { useChartOptions } from '~/composables/useChartOptions'
 
-const years = [2023, 2024, 2025];
-const monthlyAverages = ref<Record<number, Record<string, number>>>({});
-
-const getLastDayOfMonth = (year: number, month: number): string => {
-  const date = new Date(year, month, 0);
-  return String(date.getDate()).padStart(2, '0');
-};
-
-const getUrlForYear = (year: number): string => {
-  const endMonth = year === 2025 ? 4 : 12;
-  const lastDay = getLastDayOfMonth(year, endMonth);
-  const month = String(endMonth).padStart(2, '0');
-  return `https://historical-forecast-api.open-meteo.com/v1/forecast?latitude=43.5089&longitude=16.4392&start_date=${year}-01-01&end_date=${year}-${month}-${lastDay}&hourly=temperature_2m`;
-};
-
-const processYearData = async (year: number) => {
-  const res = await fetch(getUrlForYear(year));
-  const data = await res.json();
-
-  const tempsByMonth: Record<string, number[]> = {};
-  data.hourly.time.forEach((timestamp: string, i: number) => {
-    const date = new Date(timestamp);
-    const month = date.toLocaleString("en-US", { month: "long" });
-    if (!tempsByMonth[month]) tempsByMonth[month] = [];
-    tempsByMonth[month].push(data.hourly.temperature_2m[i]);
-  });
-
-  monthlyAverages.value[year] = {};
-  for (const [month, temps] of Object.entries(tempsByMonth)) {
-    const avg = temps.reduce((a, b) => a + b, 0) / temps.length;
-    monthlyAverages.value[year][month] = parseFloat(avg.toFixed(2));
-  }
-};
-
-Promise.all(years.map(processYearData)).catch(console.error);
-
-const chartData = computed((): ChartData<"line"> => {
-  const labels = Object.keys(monthlyAverages.value[2023] || {});
-  return {
-    labels,
-    datasets: years.map((year, i) => ({
-      label: `${year}`,
-      backgroundColor: ['#c82834', '#42A5F5', '#4CAF50'][i],
-      borderColor: ['#c82834', '#42A5F5', '#4CAF50'][i],
-      data: labels.map(month => monthlyAverages.value[year]?.[month] ?? null),
-      tension: 0.3,
-      fill: false
-    }))
-  };
-});
-const chartOptions: ChartOptions<'line'> = {
-  responsive: true,
-  plugins: {
-    tooltip: {
-      callbacks: {
-        label: function (context: any) {
-          const rawValue = context.raw;
-          const rounded = typeof rawValue === 'number' ? rawValue.toFixed(1) : rawValue;
-          return `${context.dataset.label}: ${rounded}°C`;
-        }
-      }
-    },
-    legend: {
-      position: 'top'
-    },
-    title: {
-      display: true,
-      text: 'Average Monthly Temperature (°C)'
-    }
-  }
-};
+const { isLoading, chartData } = useTemperatureChartData()
+const chartOptions = useChartOptions('line', 'Average Monthly Temperature (°C)', '°C')
 </script>
 
 <template>
@@ -86,8 +17,10 @@ const chartOptions: ChartOptions<'line'> = {
       <NuxtLink to="/lineChart" class="chart-link">📈 Line Chart</NuxtLink>
     </nav>
 
+    <div v-if="isLoading" class="loading">Loading...</div>
+
     <Line
-        v-if="years.every(year => monthlyAverages[year])"
+        v-else
         :data="chartData"
         :options="chartOptions"
     />
@@ -119,5 +52,10 @@ const chartOptions: ChartOptions<'line'> = {
 }
 .chart-link:hover {
   background-color: #1e88e5;
+}
+.loading {
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 2rem;
 }
 </style>

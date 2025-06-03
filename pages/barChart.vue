@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import BaseChart from '~/components/BaseChart.vue'
+import { useChartData } from '~/composables/useChartData'
+import { useChartOptions } from '~/composables/useChartOptions'
+import { useElectricityData } from '@/composables/useElectricityData';
 
-type Value = { month: string; amount: number }
-const electricity = ref<Record<string, Value[]>>({})
+const { electricity } = useElectricityData();
 
-fetch("/api-electricity.json")
-    .then(async (res) => electricity.value = await res.json())
-    .catch((err) => console.error(err.message))
-
-const chartOptions = useChartOptions('bar')
-const chartData = useChartData(electricity, 'bar')
+const chartData = useChartData(electricity, 'bar', 'amount', 'month')
+const chartOptions = useChartOptions('bar', 'Electricity', ' €')
 </script>
 
 <template>

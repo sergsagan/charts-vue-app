@@ -1,21 +1,15 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
-import type {
-    ChartData,
-    ChartTypeRegistry
-} from 'chart.js'
+import type { ChartData, ChartTypeRegistry } from 'chart.js'
 
-type ElectricityValue = {
-    month: string
-    amount: number
-}
-
-export function useChartData<T extends keyof ChartTypeRegistry>(
-    electricity: Ref<Record<string, ElectricityValue[]>>,
-    type: T
+export function useChartData<T extends keyof ChartTypeRegistry, V extends Record<string, any>>(
+    source: Ref<Record<string, V[]>>,
+    type: T,
+    valueField: keyof V,
+    labelField: keyof V
 ) {
     return computed(() => {
-        const years = Object.keys(electricity.value)
+        const years = Object.keys(source.value)
         if (!years.length) {
             return {
                 labels: [],
@@ -23,7 +17,7 @@ export function useChartData<T extends keyof ChartTypeRegistry>(
             } as ChartData<T>
         }
 
-        const labels = electricity.value[years[0]].map(item => item.month)
+        const labels = source.value[years[0]].map(item => item[labelField] as string)
         const colors = ['#c82834', '#42A5F5', '#4CAF50']
 
         const datasets = years.map((year, index) => {
@@ -38,7 +32,7 @@ export function useChartData<T extends keyof ChartTypeRegistry>(
                 label: year,
                 backgroundColor: colors[index % colors.length],
                 borderColor: colors[index % colors.length],
-                data: electricity.value[year].map(item => item.amount)
+                data: source.value[year].map(item => item[valueField])
             }
 
             if (type === 'line') {

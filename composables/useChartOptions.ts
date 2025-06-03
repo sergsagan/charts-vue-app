@@ -2,7 +2,8 @@ import type { ChartOptions, TooltipItem } from 'chart.js'
 
 export function useChartOptions<T extends 'bar' | 'line'>(
     type: T,
-    title: string = 'Electricity'
+    title: string,
+    unit: string = ''
 ): ChartOptions<T> {
     return {
         responsive: true,
@@ -11,7 +12,8 @@ export function useChartOptions<T extends 'bar' | 'line'>(
                 callbacks: {
                     label: (context: TooltipItem<T>) => {
                         const value = (context.parsed as { y: number }).y
-                        return `€ ${Number(value).toFixed(2)}`
+                        const dataset = context.dataset as { label: string }
+                        return `${dataset.label}: ${value.toFixed(1)}${unit}`
                     }
                 }
             },
@@ -26,7 +28,7 @@ export function useChartOptions<T extends 'bar' | 'line'>(
         scales: {
             y: {
                 ticks: {
-                    callback: (value: string | number) => `€ ${value}`
+                    callback: (value: string | number) => `${value}${unit}`
                 }
             }
         }
