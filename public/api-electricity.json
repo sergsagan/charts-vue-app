@@ -34,10 +34,10 @@
     { "month": "April", "amount":  40.16 },
     { "month": "May", "amount":  42.06 },
     { "month": "June", "amount":  35.97 },
-    { "month": "July", "amount":  0 },
-    { "month": "August", "amount":  0 },
-    { "month": "September", "amount": 0 },
-    { "month": "October", "amount": 0 },
+    { "month": "July", "amount":  44.88 },
+    { "month": "August", "amount":  41.14 },
+    { "month": "September", "amount": 41.17 },
+    { "month": "October", "amount": 57.11 },
     { "month": "November", "amount": 0 },
     { "month": "December", "amount": 0 }
   ]
