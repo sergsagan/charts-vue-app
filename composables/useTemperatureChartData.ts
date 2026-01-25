@@ -12,9 +12,27 @@ const getLastDayOfMonth = (year: number, month: number): string => {
 }
 
 const getUrlForYear = (year: number): string => {
-    const endMonth = 12
+    const now = new Date()
+    const currentYear = now.getFullYear()
+    const currentMonth = now.getMonth() + 1
+
+    let endMonth: number
+
+    if (year < currentYear) {
+        endMonth = 12
+    } else if (year === currentYear) {
+        endMonth = currentMonth - 1
+    } else {
+        throw new Error(`Year ${year} is in the future`)
+    }
+
+    if (endMonth <= 0) {
+        throw new Error(`No completed months yet for year ${year}`)
+    }
+
     const lastDay = getLastDayOfMonth(year, endMonth)
     const month = String(endMonth).padStart(2, '0')
+
     return `https://historical-forecast-api.open-meteo.com/v1/forecast?latitude=43.5089&longitude=16.4392&start_date=${year}-01-01&end_date=${year}-${month}-${lastDay}&hourly=temperature_2m`
 }
 
