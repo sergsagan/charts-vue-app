@@ -3,8 +3,8 @@ import type { ChartData } from 'chart.js'
 
 type MonthlyAverages = Record<number, Record<string, number>>
 
-const years = [2023, 2024, 2025]
-const colors = ['#c82834', '#42A5F5', '#4CAF50']
+const years = [2023, 2024, 2025, 2026]
+const colors = ['#c82834', '#42A5F5', '#4CAF50', '#FFA500']
 
 const getLastDayOfMonth = (year: number, month: number): string => {
     const date = new Date(year, month, 0)
@@ -12,7 +12,7 @@ const getLastDayOfMonth = (year: number, month: number): string => {
 }
 
 const getUrlForYear = (year: number): string => {
-    const endMonth = year === 2025 ? 11 : 12
+    const endMonth = year === 2025 ? 12 : 12
     const lastDay = getLastDayOfMonth(year, endMonth)
     const month = String(endMonth).padStart(2, '0')
     return `https://historical-forecast-api.open-meteo.com/v1/forecast?latitude=43.5089&longitude=16.4392&start_date=${year}-01-01&end_date=${year}-${month}-${lastDay}&hourly=temperature_2m`
