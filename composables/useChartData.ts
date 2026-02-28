@@ -18,7 +18,7 @@ export function useChartData<T extends keyof ChartTypeRegistry, V extends Record
         }
 
         const labels = source.value[years[0]].map(item => item[labelField] as string)
-        const colors = ['#c82834', '#42A5F5', '#4CAF50']
+        const colors = ['#c82834', '#42A5F5', '#4CAF50', '#FF9800']
 
         const datasets = years.map((year, index) => {
             const dataset: {

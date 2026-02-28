@@ -3,8 +3,8 @@ import type { ChartData } from 'chart.js'
 
 type MonthlyAverages = Record<number, Record<string, number>>
 
-const years = [2023, 2024, 2025]
-const colors = ['#c82834', '#42A5F5', '#4CAF50']
+const years = [2023, 2024, 2025, 2026]
+const colors = ['#c82834', '#42A5F5', '#4CAF50', '#FF9800']
 
 const getLastDayOfMonth = (year: number, month: number): string => {
     const date = new Date(year, month, 0)

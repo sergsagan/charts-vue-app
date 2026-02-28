@@ -6,7 +6,7 @@ export function buildChartData<T extends 'bar' | 'line'>(
     dataMap: Record<string, Record<string, number>>,
     type: T
 ): ChartData<T> {
-    const colors = ['#c82834', '#42A5F5', '#4CAF50']
+    const colors = ['#c82834', '#42A5F5', '#4CAF50', '#FF9800']
 
     return {
         labels,
