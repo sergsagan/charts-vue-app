@@ -9,7 +9,7 @@ const chartOptions = useChartOptions('line', 'Average Monthly Temperature (°C)'
 
 <template>
   <div class="home">
-    <h1 class="title">📉 Temperature in Split (2023–2025)</h1>
+    <h1 class="title">📉 Temperature in Split (2023–2026)</h1>
 
     <nav class="nav-links">
       <span>Electricity:</span>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { Bar, Line } from 'vue-chartjs'
 import type { ChartData, ChartOptions, ChartComponentLike } from 'chart.js'
 

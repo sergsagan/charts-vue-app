@@ -42,7 +42,8 @@
     { "month": "December", "amount": 154.72 }
   ],
   "2026":[
-    { "month": "January", "amount":  200.04 }
-
+    { "month": "January", "amount":  200.04 },
+    { "month": "February", "amount": 184.64 },
+    { "month": "March", "amount": 155.58 }
   ]
 }
